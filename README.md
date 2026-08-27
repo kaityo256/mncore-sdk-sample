@@ -42,11 +42,11 @@ fullイメージをベースにサンプル用イメージをビルドし、コ�
 docker compose -f docker/docker-compose.yml run --rm --build mncore-sdk
 ```
 
-ローカルの`examples`ディレクトリは、コンテナ内の`/root/examples`にマウントされます。
-ローカルで`examples`ディレクトリにソースファイルを置くと、コンテナ内の
-`/root/examples`からそのファイルをコンパイルできます。
+ローカルの`examples`ディレクトリは、コンテナ内の`/root/examples`にマウントされます。ローカルで`examples`ディレクトリにソースファイルを置くと、コンテナ内の`/root/examples`からそのファイルをコンパイルできます。
 
-コンテナ内で、デバイス用コードとホスト用コードをコンパイルして実行します。
+また、コンパイラである`mnclc`や、必要なインクルードファイルやライブラリにパスが通った状態で起動します。
+
+コンテナ内で、デバイス用コードとホスト用コードを以下のようにコンパイル、実行できます。
 
 ```sh
 mnclc add.c -e add -o add.bin
@@ -60,6 +60,21 @@ c++ -std=c++23 main.cc -o add_host -lmncl
 1 + 2 = 3
 ```
 
+## アセンブリの確認
+
+`CODEGEN_DUMP_VSM`環境変数を1に設定すると、MN-Core 2のアセンブリ(VSM)を出力することができます。
+
+```sh
+CODEGEN_DUMP_VSM=1 mnclc add.c -e add  2> add.vsm
+```
+
+先程の例なら、`fvadd`命令が出力されていることを確認できます。
+
+```sh
+$ grep fvadd add.vsm
+fvadd $aluf $lm72v -> $nowrite  # unknown-loc @ForwardRead3 ; unknown-loc @LMRead3
+```
+
 ## 補足
 
 SDK付属の`create_dev_ctr.sh`は、MN-Coreの実機をコンテナに接続するための補助スクリプトです。
@@ -69,14 +84,9 @@ SDK付属の`create_dev_ctr.sh`は、MN-Coreの実機をコンテナに接続す
 - スクリプトが使用する`readarray`は、macOS標準のBash 3.2では利用できない
 - デバイスの排他制御に使う`/opt/mncore_shared_semaphore`のマウントに失敗する
 
-したがって、macOSでエミュレータを試す場合は上記のDocker Composeによる実行が楽だと思います。
+したがって、macOSでエミュレータを試す場合は上記のDocker Composeにで実行するのが楽だと思います。
 
 ## ライセンス
 
-H. Watanabeが作成したこのリポジトリのファイルは、[MIT License](LICENSE)で
-公開しています。
-
-Gitサブモジュールとして取得される`mncore/`はMIT Licenseの対象外です。
-`mncore/`にはApache License 2.0が適用されます。詳細は
-[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)および
-[`mncore/LICENSE`](mncore/LICENSE)を参照してください。
+このリポジトリのファイルは、[MIT License](LICENSE)で公開します。
+Gitサブモジュールとして取得される`mncore`は、そのリポジトリの[ライセンス](mncore/LICENSE)に従います。
