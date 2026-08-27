@@ -58,17 +58,14 @@ c++ -std=c++23 main.cc -o add_host -lmncl
 
 ## 補足
 
-SDK付属の`create_dev_ctr.sh`は、MN-Coreの実機をコンテナに接続するための
-補助スクリプトです。このサンプルではエミュレータを使用するため、スクリプトを
-使わずDocker Composeでコンテナを起動します。
+SDK付属の`create_dev_ctr.sh`は、MN-Coreの実機をコンテナに接続するための補助スクリプトです。
 
-また、macOSで`create_dev_ctr.sh`を使用すると、次の問題が発生します。
+しかし、macOSで`create_dev_ctr.sh`を使用すると、次の問題が発生します。
 
 - スクリプトが使用する`readarray`は、macOS標準のBash 3.2では利用できない
 - デバイスの排他制御に使う`/opt/mncore_shared_semaphore`のマウントに失敗する
 
-この点からも、macOSでエミュレータを試す場合は上記のDocker Composeによる実行が
-適しています。
+したがって、macOSでエミュレータを試す場合は上記のDocker Composeによる実行が楽だと思います。
 
 ## ライセンス
 
