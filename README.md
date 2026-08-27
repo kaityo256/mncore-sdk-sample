@@ -11,12 +11,11 @@ cd mncore-sdk-sample
 
 ## Docker Imageのビルド
 
+まず、mncore-sdk-full:0.7のイメージを作成
+
 ```sh
-cd mncore
-cd sdk
-cd 0.7
-docker build -t mncore-sdk-minimal:0.7 -f mncore-sdk-minimal.Dockerfile .
-docker build -t mncore-sdk-full:0.7 -f mncore-sdk-full.Dockerfile --build-arg minimal_image_ref=mncore-sdk-minimal:0.7 .
+docker build -t mncore-sdk-minimal:0.7 -f mncore/sdk/0.7/mncore-sdk-minimal.Dockerfile .
+docker build -t mncore-sdk-full:0.7 -f mncore/sdk/0.7/mncore-sdk-full.Dockerfile --build-arg minimal_image_ref=mncore-sdk-minimal:0.7 .
 ```
 
 公式サイトでは`create_dev_ctr.sh`を使う例が載っていますが、これは利用するMN-Coreデバイスを探して、もし実機があればそれを使うための補助スクリプトです。しかし、
