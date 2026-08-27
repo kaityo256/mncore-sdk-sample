@@ -1,0 +1,3 @@
+[submodule "mncore"]
+	path = mncore
+	url = https://github.com/pfnet/mncore.git
