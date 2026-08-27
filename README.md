@@ -42,6 +42,10 @@ fullイメージをベースにサンプル用イメージをビルドし、コ�
 docker compose -f docker/docker-compose.yml run --rm --build mncore-sdk
 ```
 
+ローカルの`examples`ディレクトリは、コンテナ内の`/root/examples`にマウントされます。
+ローカルで`examples`ディレクトリにソースファイルを置くと、コンテナ内の
+`/root/examples`からそのファイルをコンパイルできます。
+
 コンテナ内で、デバイス用コードとホスト用コードをコンパイルして実行します。
 
 ```sh
