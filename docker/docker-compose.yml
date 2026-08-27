@@ -1,0 +1,36 @@
+# Run from the repository root:
+#   docker compose -f docker/docker-compose.yml run --rm mncore-sdk
+
+services:
+  mncore-sdk-minimal:
+    image: mncore-sdk-minimal:0.7
+    build:
+      context: ../mncore/sdk/0.7
+      dockerfile: mncore-sdk-minimal.Dockerfile
+
+  mncore-sdk-full:
+    image: mncore-sdk-full:0.7
+    build:
+      context: ../mncore/sdk/0.7
+      dockerfile: mncore-sdk-full.Dockerfile
+      args:
+        minimal_image_ref: minimal_image
+      additional_contexts:
+        minimal_image: service:mncore-sdk-minimal
+
+  mncore-sdk:
+    image: kaityo256/mncore-sdk-sample
+    pull_policy: build
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        full_image_ref: full_image
+      additional_contexts:
+        full_image: service:mncore-sdk-full
+    volumes:
+      - ../examples:/root/examples
+    working_dir: /root/examples
+    stdin_open: true
+    tty: true
+    command: /bin/bash
