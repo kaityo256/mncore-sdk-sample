@@ -8,9 +8,7 @@
 #     --mount type=bind,src="$(pwd)/examples",dst=/root/examples \
 #     kaityo256/mncore-sdk-sample
 
-ARG full_image_ref=mncore-sdk-full:0.7
-
-FROM ${full_image_ref}
+FROM mncore-sdk-full:0.7
 
 ENV CPATH=/opt/pfn/pfcomp/mncl/include \
     LIBRARY_PATH=/opt/pfn/pfcomp/mncl/lib \
