@@ -69,3 +69,13 @@ SDK付属の`create_dev_ctr.sh`は、MN-Coreの実機をコンテナに接続す
 
 この点からも、macOSでエミュレータを試す場合は上記のDocker Composeによる実行が
 適しています。
+
+## ライセンス
+
+H. Watanabeが作成したこのリポジトリのファイルは、[MIT License](LICENSE)で
+公開しています。
+
+Gitサブモジュールとして取得される`mncore/`はMIT Licenseの対象外です。
+`mncore/`にはApache License 2.0が適用されます。詳細は
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)および
+[`mncore/LICENSE`](mncore/LICENSE)を参照してください。
