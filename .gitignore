@@ -1,2 +1,3 @@
-/examples/add.bin
-/examples/add_host
+examples/add_host
+*.bin
+*.vsm
