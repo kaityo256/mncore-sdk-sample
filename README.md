@@ -1,7 +1,6 @@
 # MN-Core SDK を使うためのサンプル
 
-MN-Core SDK 0.7 のDocker環境で、ベクトル加算のサンプルをコンパイルし、
-MN-Coreエミュレータ上で実行します。MN-Coreの実機は必要ありません。
+[MN-Core SDK](https://github.com/pfnet/mncore)に含まれるDocker環境で、ベクトル加算のサンプルをコンパイルし、MN-Coreエミュレータ上で実行するサンプルです。MN-Coreの実機は必要ありません。
 
 ## 必要なもの
 
@@ -17,7 +16,7 @@ git clone --recursive https://github.com/kaityo256/mncore-sdk-sample.git
 cd mncore-sdk-sample
 ```
 
-すでにクローン済みでサブモジュールが空の場合は、次のコマンドで取得できます。
+すでにクローン済みでサブモジュールが空の場合は、次のコマンドで取得します。
 
 ```sh
 git submodule update --init --recursive
@@ -25,8 +24,7 @@ git submodule update --init --recursive
 
 ## Dockerイメージのビルド
 
-リポジトリのルートディレクトリで、SDKのminimalイメージと、それをベースにした
-fullイメージを順にビルドします。
+リポジトリのルートディレクトリで、SDKのminimalイメージと、それをベースにしたfullイメージを順にビルドします。
 
 ```sh
 docker build -t mncore-sdk-minimal:0.7 -f mncore/sdk/0.7/mncore-sdk-minimal.Dockerfile .
@@ -36,7 +34,6 @@ docker build -t mncore-sdk-full:0.7 -f mncore/sdk/0.7/mncore-sdk-full.Dockerfile
 ## サンプルの実行
 
 fullイメージをベースにサンプル用イメージをビルドし、コンテナに入ります。
-初回はイメージのビルドが行われるため、完了まで時間がかかります。
 
 ```sh
 docker compose -f docker/docker-compose.yml run --rm --build mncore-sdk
@@ -62,7 +59,7 @@ c++ -std=c++23 main.cc -o add_host -lmncl
 
 ## アセンブリの確認
 
-`CODEGEN_DUMP_VSM`環境変数を1に設定すると、MN-Core 2のアセンブリ(VSM)を出力することができます。
+`CODEGEN_DUMP_VSM`環境変数を1に設定すると、MN-Core 2のアセンブリ(VSM)を出力することができます。標準エラー出力に出るので、適切にリダイレクトすると良いでしょう。
 
 ```sh
 CODEGEN_DUMP_VSM=1 mnclc add.c -e add  2> add.vsm
@@ -84,7 +81,7 @@ SDK付属の`create_dev_ctr.sh`は、MN-Coreの実機をコンテナに接続す
 - スクリプトが使用する`readarray`は、macOS標準のBash 3.2では利用できない
 - デバイスの排他制御に使う`/opt/mncore_shared_semaphore`のマウントに失敗する
 
-したがって、macOSでエミュレータを試す場合は上記のDocker Composeにで実行するのが楽だと思います。
+macOSでエミュレータを試す場合は上記のDocker Composeで実行する方が楽だと思います。
 
 ## ライセンス
 
