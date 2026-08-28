@@ -43,12 +43,10 @@ docker compose -f docker/docker-compose.yml run --rm --build mncore-sdk
 
 また、コンパイラである`mnclc`や、必要なインクルードファイルやライブラリにパスが通った状態で起動します。
 
-コンテナ内で、デバイス用コードとホスト用コードを以下のようにコンパイル、実行できます。
+コンテナ内で、加算サンプルを以下のようにコンパイル、実行できます。
 
 ```sh
-mnclc add.c -e add -o add.bin
-c++ -std=c++23 main.cc -o add_host -lmncl
-./add_host
+make -C add run
 ```
 
 次のように表示されれば成功です。
@@ -57,12 +55,22 @@ c++ -std=c++23 main.cc -o add_host -lmncl
 1 + 2 = 3
 ```
 
+Conway's Game of Lifeサンプルは次のように実行します。
+
+```sh
+make -C lifegame run
+```
+
+32×32の盤面について、Generation 0からGeneration 10までをMN-Core 2
+Emulatorで1 stepずつ計算します。詳細は
+[`examples/lifegame/README.md`](examples/lifegame/README.md)を参照してください。
+
 ## アセンブリの確認
 
 `CODEGEN_DUMP_VSM`環境変数を1に設定すると、MN-Core 2のアセンブリ(VSM)を出力することができます。標準エラー出力に出るので、適切にリダイレクトすると良いでしょう。
 
 ```sh
-CODEGEN_DUMP_VSM=1 mnclc add.c -e add  2> add.vsm
+make -C add vsm
 ```
 
 先程の例なら、`fvadd`命令が出力されていることを確認できます。

@@ -1,4 +1,6 @@
 examples/add_host
+examples/add/add_host
+examples/lifegame/lifegame
 *.bin
 *.vsm
 mncore2_dev_manual_ja.pdf
